@@ -54,7 +54,7 @@
               </q-item-tile>
            </q-item-main>
         </q-item>
-        <q-item to='Equipment/Gloves'>
+        <q-item to='/Equipment/Gloves'>
            <q-item-main>
               <q-item-tile color='primary'>
                Gloves
