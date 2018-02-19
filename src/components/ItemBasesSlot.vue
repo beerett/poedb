@@ -1,6 +1,6 @@
 <template>
-  <div class='row'>main
-    <div v-if="slot" class='items col-2'>
+  <div class='row'>
+    <div v-if="slot" class='items  col-xs-12 col-sm-4 col-md-3'>
       <q-input 
                v-model='filter'
                :after="[ { icon: 'search' } ]"
@@ -38,7 +38,7 @@
         </li>
       </ul>
     </div>
-    <div class='col-6'>
+    <div class='col-xs-12 col-sm-8 col-md-9'>
       <router-view name="inner" :itemProp="items"></router-view>
     </div>
   </div>
