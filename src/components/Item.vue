@@ -1,5 +1,7 @@
 <template>
-<div v-if='itemProp'>{{ itemInfo }}</div>
+<div>
+  <div v-if='itemProp'>{{ itemInfo }}</div>
+</div>
 </template>
 <script>
   var item = ''

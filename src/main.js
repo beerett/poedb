@@ -16,10 +16,10 @@ import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 Vue.use(Quasar) // Install Quasar Framework
 
-Vue.use(VueAxios, axios)
 if (__THEME === 'mat') {
   require('quasar-extras/roboto-font')
 }
@@ -27,7 +27,6 @@ import 'quasar-extras/material-icons'
 // import 'quasar-extras/ionicons'
 // import 'quasar-extras/fontawesome'
 // import 'quasar-extras/animate'
-
 Quasar.start(() => {
   /* eslint-disable no-new */
   new Vue({
@@ -35,18 +34,4 @@ Quasar.start(() => {
     router,
     render: h => h(require('./App').default)
   })
-})
-Vue.mixin({
-  computed: {
-    drawerStyle: function () {
-      return {
-        'width': '130px'
-      }
-    },
-    drawerClass: function () {
-      return {
-        'bg-tertiary': true
-      }
-    }
-  }
 })

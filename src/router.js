@@ -7,7 +7,7 @@ function load (component) {
   // '@' is aliased to src/components
   return () => import(`@/${component}.vue`)
 }
-import Index from './components/Index.vue'
+import MainIndex from './components/MainIndex.vue'
 export default new VueRouter({
   /*
    * NOTE! VueRouter "history" mode DOESN'T works for Cordova builds,
@@ -26,8 +26,7 @@ export default new VueRouter({
   routes: [
     {
       path: '/',
-      name: 'Index',
-      component: Index,
+      component: MainIndex,
       children: [
         {
           path: '/',
@@ -37,25 +36,98 @@ export default new VueRouter({
       ]
     },
     {
-      path: '/Equipment',
-      name: 'Equipment.index',
-      component: load('Equipment'),
+      path: '/Gems',
+      component: MainIndex,
       children: [
         {
-          path: ':slot',
-          name: 'Equipment.slot',
-          component: load('Slot'),
+          path: '/Gems',
+          redirect: '/Gems/ActiveSkill',
+          component: load('GemList'),
           children: [
             {
-              path: ':item',
-              name: 'Equipment.item',
-              component: load('Item')
+              path: '/Gems/ActiveSkill',
+              name: 'Gems.Active',
+              component: load('GemListActive')
+            },
+            {
+              path: '/Gems/SupportSkill',
+              name: 'Gems.Support',
+              component: load('GemListSupport')
+            },
+            {
+              path: '/Gems/VaalSkill',
+              name: 'Gems.Vaal',
+              component: load('GemListVaal')
+            },
+            {
+              path: '/Gems/All',
+              components: {
+                active: load('GemListActive'),
+                support: load('GemListSupport'),
+                vaal: load('GemListVaal')
+              }
             }
           ]
         }
       ]
     },
-
+    {
+      path: '/ItemBases',
+      component: MainIndex,
+      children: [
+        {
+          path: '/ItemBases/',
+          name: 'ItemBases',
+          components: {
+            leftSide: load('ItemBasesList'),
+            default: load('ItemBasesSlot')
+          }
+        }
+      ]
+    },
+    {
+      path: '/ItemBases/:slot',
+      component: MainIndex,
+      children: [
+        {
+          path: '/ItemBases/:slot',
+          components: {
+            default: load('ItemBasesSlot'),
+            leftSide: load('ItemBasesList')
+          },
+          children: [
+            {
+              name: 'ItemBases.Item',
+              path: '/ItemBases/:slot/:item',
+              components: {
+                inner: load('Item')
+              }
+            }
+          ]
+        }
+      ]
+    },
+    /*
+    {
+      path: '/ItemBases/:slot/:item',
+      component: MainIndex,
+      children: [
+        {
+          path: '/ItemBases/:slot/:item',
+          components: {
+            leftSide: load('ItemBasesList'),
+            default: load('ItemBasesSlot')
+          },
+          children: [
+            {
+              path: '/ItemBases/:slot/:item',
+              inner: load('Item')
+            }
+          ]
+        }
+      ]
+    },
+    */
     // Always leave this last one
     { path: '*', component: load('Error404') } // Not found
   ]

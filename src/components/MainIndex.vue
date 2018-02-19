@@ -2,18 +2,19 @@
  <q-layout
       ref="layout"
       view="hHh Lpr fFf"
-      :left-style="drawerStyle"
-      :header-class="drawerClass"
+      :left-style="poeStyle"
+      :left-class="poeClass"
+      :header-class="poeClass"
       >
   <div slot='header'>
     <div class='row justify-start items-center'>
        <img class='headerImage' src='statics/ninjalogoheader.png' />
-      <span class='headerText text-thin text-white'>POE Ninja</span>
-        <router-link class='current' to='/'>Home</router-link>
-         <a href='#/Equipment'>Item Bases</a>
+      <span class='headerText text-thin'>POE DB</span>
+        <router-link to='/'>Home</router-link>
+         <a href='#/ItemBases'>Item Bases</a>
          <a href='#'>Uniques</a>
          <a href='#'>Builds</a>
-         <a href='#'>Gems</a>
+         <a href='#/Gems'>Gems</a>
          <a href='#'>Flasks</a>
          <a href='#'>Maps</a>
          <a href='#'>Recipes</a>
@@ -24,22 +25,21 @@
     </div>
   </div>
    
-   
-    <router-view></router-view>
-   
-  
-  
+    <div v-if="pageDetection()" slot='left'>
+      <router-view name='leftSide'></router-view>
+
+    </div>
+    <router-view></router-view> 
+     
   </q-layout>
 </template>
-
-
 <script>
   import {
     QLayout,
     QIcon
   } from 'quasar'
   export default {
-    name: 'Index',
+    name: 'MainIndex',
     data () {
       return {
       }
@@ -47,10 +47,30 @@
     components: {
       QLayout,
       QIcon
+    },
+    methods: {
+      pageDetection (page) {
+        console.log(this.$route.name)
+        if (this.$route.name.includes('Gems')) {
+          return false
+        }
+        return true
+      }
+    },
+    computed: {
+      poeStyle: function () {
+        return {
+          'width': '140px'
+        }
+      },
+      poeClass: function () {
+        return {
+          'bg-light': true
+        }
+      }
     }
   }
 </script>
-
 <style lang="stylus">
   @import '~variables'
   .headerText
@@ -66,7 +86,7 @@
   header a
     line-height 70px
     border 0
-    color #B0BED1
+    color #404040
     display inline-block
     text-decoration none
     padding: 0 15px
@@ -75,6 +95,8 @@
     background-color $faded
     cursor default
   header a:hover:not(.current)
-    color white
-    background-color $faded
+    color black
+    background-color $primary
+  .bg-poe
+    background $light
 </style>

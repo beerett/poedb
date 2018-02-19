@@ -1,6 +1,6 @@
 <template>
-  <div class='row'>
-    <div class='items col-3'>
+  <div class='row'>main
+    <div v-if="slot" class='items col-2'>
       <q-input 
                v-model='filter'
                :after="[ { icon: 'search' } ]"
@@ -39,7 +39,7 @@
       </ul>
     </div>
     <div class='col-6'>
-      <router-view :itemProp="items"></router-view>
+      <router-view name="inner" :itemProp="items"></router-view>
     </div>
   </div>
 </template>
@@ -63,7 +63,7 @@
     QScrollArea
   } from 'quasar'
   export default {
-    name: 'Equipment-Slot',
+    name: 'ItemBasesSlot',
     data () {
       return {
         items: items,
@@ -91,7 +91,7 @@
     },
     computed: {
       itemLink (num) {
-        return this.$route.path + num
+        return this.$route.path
       }
     },
     mounted () {
@@ -100,7 +100,7 @@
     methods: {
       loadItem (index) {
         var current = index
-        this.$router.push({ name: 'Equipment.item', params: { item: current } })
+        this.$router.push({ name: 'ItemBases.Item', params: { item: current } })
       },
       async updateRoute () {
         try {
