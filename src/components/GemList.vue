@@ -30,7 +30,7 @@
   />
      <q-route-tab
     label="Vaal Gems"
-    to="/Gems/VaalSkill"
+    to=""
     exact
     slot="title"
   />

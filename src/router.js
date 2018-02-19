@@ -52,7 +52,7 @@ export default new VueRouter({
             {
               path: '/Gems/SupportSkill',
               name: 'Gems.Support',
-              component: load('GemListSupport')
+              component: load('GemListActive')
             },
             {
               path: '/Gems/VaalSkill',
