@@ -1,4 +1,4 @@
-# Path Of Exile Ninja
+# Path Of Exile DB
 
 > Contains items, bases, mods, jewels, maps, etc
 
