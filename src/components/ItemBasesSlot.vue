@@ -2,11 +2,11 @@
   <div class='row'>
     <div v-if="slot" class='items  col-xs-12 col-sm-4 col-md-3'>
       <q-input 
-               v-model='filter'
+               v-model='filterText'
                :after="[ { icon: 'search' } ]"
                placeholder='Filter Items..' />
-      <ul v-for='(item,index) in items' :key='items.id'>
-        <li @click="loadItem(index)" class='item'>
+      <ul>
+        <li v-for='(item,index) in filteredItems' :key='index' @click="loadItem(index)" class='item'>
           {{ item.name }}
           <span v-if='!socketWeight'><span v-if="item.tags.includes('int_armour')">
         <q-icon color='blue' name="fiber_manual_record" size="12px" />
@@ -48,7 +48,7 @@
   var items
   var socketWeight = false
   const slot = ''
-  const filter = ''
+  var filterText = ''
   import axios from 'axios'
   import {
     QIcon,
@@ -68,7 +68,7 @@
       return {
         items: items,
         slot: slot,
-        filter: filter,
+        filterText: filterText,
         socketWeight: socketWeight
       }
     },
@@ -92,6 +92,13 @@
     computed: {
       itemLink (num) {
         return this.$route.path
+      },
+      filteredItems () {
+        var self = this
+        if (this.filterText === '') return this.items
+        return this.items.filter(function (item) {
+          return item.name.indexOf(self.filterText) > -1
+        })
       }
     },
     mounted () {

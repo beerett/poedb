@@ -27,7 +27,7 @@
   />
    
 </q-tabs>
-  <div v-if='itemProp'>{{ itemInfo }}</div>
+  <div v-if='itemProp'><pre>{{ itemInfo }}</pre></div>
 </div>
 </template>
 <script>

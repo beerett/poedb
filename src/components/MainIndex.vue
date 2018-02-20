@@ -50,8 +50,7 @@
     },
     methods: {
       pageDetection (page) {
-        console.log(this.$route.name)
-        if (this.$route.name.includes('Gems')) {
+        if (this.$route.path.includes('Gems')) {
           return false
         }
         return true
